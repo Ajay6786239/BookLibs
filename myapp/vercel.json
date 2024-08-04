@@ -1,14 +1,14 @@
 {
     "version": 2,
-    "name": "BookLib",
     "builds": [
       {
-        "src": "manage.py",
+        "src": "vercel-build.sh",
         "use": "@vercel/python",
         "config": {
           "maxLambdaSize": "50mb",
           "runtime": "python3.12"
         }
+      
       },
       {
         "src": "staticfiles/**/*",
