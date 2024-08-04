@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,8 @@ SECRET_KEY = 'django-insecure-^f4gc5(c*a21rjo9^&czv_p3-3*oi2iiyukqbom9fy0_h+h_7@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'BookLib.vercel.app',
+    'www.AjayLib.com']
 
 
 # Application definition
@@ -77,11 +79,11 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BookLib',
-        'USER':'root',
-        'PASSWORD':"14082004",
-        'HOST':"localhost",
-        'PORT':"3306"
+        'NAME': os.getenv('BookLib'),
+        'USER':os.getenv('root'),
+        'PASSWORD':os.getenv("14082004"),
+        'HOST':os.getenv("localhost"),
+        'PORT':os.getenv("3306")
     }
 }
 
