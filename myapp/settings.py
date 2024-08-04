@@ -1,22 +1,36 @@
-from pathlib import Path
-import environ
 import os
-# Initialize environ
-env = environ.Env()
-# Reading .env file
-environ.Env.read_env(env_file=Path(__file__).resolve().parent.parent / '.env')
+from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Define the base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+# Secret key
+SECRET_KEY = 't!m(8q3_7yzj8&1(b-f%q!c@17_d0r!8)*gq!@4g(7d3c#d)4z'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+# Debug mode
+DEBUG = False
 
-# ALLOWED_HOSTS should include all domains and IPs that your Django app will be accessible from.
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+# Allowed hosts
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'BookLib.vercel.app', 'www.AjayLib.com']
+
+# Database configuration
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'BookLib',
+        'USER': 'root',
+        'PASSWORD': '14082004',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+# Static files configuration
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'BookLib', 'static', 'BookLib')
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -37,7 +51,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -61,11 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myapp.wsgi.application'
 
-# Database configuration using django-environ
-DATABASES = {
-    'default': env.db('DATABASE_URL')
-}
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -81,13 +89,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATICFILES_DIRS=[
-    "BookLib/static/BookLib"
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Enable WhiteNoise for static file handling
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
