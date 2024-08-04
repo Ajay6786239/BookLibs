@@ -1,6 +1,6 @@
 from pathlib import Path
 import environ
-
+import os
 # Initialize environ
 env = environ.Env()
 # Reading .env file
@@ -65,18 +65,6 @@ DATABASES = {
     'default': env.db('DATABASE_URL')
 }
 
-# Alternatively, if DATABASE_URL is not used, you can specify manually
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',  # Adjust to your database engine
-#         'NAME': env('DATABASE_NAME'),
-#         'USER': env('DATABASE_USER'),
-#         'PASSWORD': env('DATABASE_PASSWORD'),
-#         'HOST': env('DATABASE_HOST', default='localhost'),
-#         'PORT': env('DATABASE_PORT', default='3306'),
-#     }
-# }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -92,8 +80,13 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/BookLib/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = 'static/'
+STATICFILES_DIRS=[
+    "BookLib/static/BookLib"
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Enable WhiteNoise for static file handling
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
